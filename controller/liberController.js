@@ -20,7 +20,6 @@ const createBook = (req, res) => {
 
 const getLibrat = (req, res) => {
   Liber.find().then((result) => res.json({ result }));
-  res.send("hi");
 };
 
 const deleteLiber = (req, res) => {
@@ -29,7 +28,6 @@ const deleteLiber = (req, res) => {
   Liber.deleteOne({ isbn: isbn })
     .then((res) => true)
     .catch((err) => console.log(err));
-  res.send("hi");
 };
 
 const decreaseStock = (req, res) => {

@@ -14,7 +14,6 @@ app.use(bodyParser.urlencoded());
 
 // parse application/json
 app.use(bodyParser.json());
-console.log("");
 mongoose
   .connect(process.env.URI_IDK, {
     useNewUrlParser: true,
