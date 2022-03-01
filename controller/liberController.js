@@ -20,6 +20,7 @@ const createBook = (req, res) => {
 
 const getLibrat = (req, res) => {
   Liber.find().then((result) => res.json({ result }));
+  res.send("hi");
 };
 
 const deleteLiber = (req, res) => {
