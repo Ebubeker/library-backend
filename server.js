@@ -6,7 +6,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 console.log(process.env.URI_IDK);
 // parse application/x-www-form-urlencoded
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded());
 
 // parse application/json
 app.use(bodyParser.json());
-
+console.log("");
 mongoose
   .connect(process.env.URI_IDK, {
     useNewUrlParser: true,
