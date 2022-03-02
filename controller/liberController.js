@@ -58,11 +58,16 @@ const increaseStock = (req, res) => {
 
 const updateBook = (req, res) => {
   const bookObj = req.body.book;
-  console.log(bookObj.isbn);
 
   Liber.findOneAndUpdate({ isbn: bookObj.isbn }, bookObj).catch((err) =>
     console.log(err)
   );
+};
+
+const searchByName = (req, res) => {
+  const name = req.params.name;
+  console.log(name);
+  Liber.find({ title: { $regex: name } }).then((resu) => res.send({ resu }));
 };
 
 module.exports = {
@@ -72,4 +77,5 @@ module.exports = {
   decreaseStock,
   updateBook,
   increaseStock,
+  searchByName,
 };
