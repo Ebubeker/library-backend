@@ -27,8 +27,15 @@ const deleteCupon = (req, res) => {
     .catch((err) => console.log(err));
 };
 
+const searchCuponByName = (req, res) => {
+  const name = req.params.name;
+  console.log(name);
+  Cupon.find({ emri: { $regex: name } }).then((resu) => res.send({ resu }));
+};
+
 module.exports = {
   createCupon,
   listCupon,
   deleteCupon,
+  searchCuponByName,
 };
