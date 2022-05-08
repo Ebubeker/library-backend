@@ -16,10 +16,16 @@ const createBook = (req, res) => {
   });
 
   newBook.save();
+
+  res.send({
+    bookname: newBook.title,
+  });
 };
 
 const getLibrat = (req, res) => {
-  Liber.find().then((result) => res.json({ result }));
+  Liber.find()
+    .sort({ field: "asc", _id: -1 })
+    .then((result) => res.json({ result }));
 };
 
 const deleteLiber = (req, res) => {
@@ -65,9 +71,48 @@ const updateBook = (req, res) => {
 };
 
 const searchByName = (req, res) => {
-  const name = req.params.name;
-  console.log(name);
-  Liber.find({ title: { $regex: name } }).then((resu) => res.send({ resu }));
+  const id = req.params.id;
+  const name = id.split("-")[0];
+  const category = id.split("-")[1];
+  const sort = id.split("-")[2];
+
+  if (sort === "emri_A_Z") {
+    Liber.find({
+      title: { $regex: name, $options: "i" },
+      category: category,
+    })
+      .collation({ locale: "en", strength: 2 })
+      .sort({ title: 1 })
+      .then((resu) => res.send({ resu }));
+  } else {
+    Liber.find({
+      title: { $regex: name, $options: "i" },
+      category: category,
+    })
+      .sort([["stock", "desc"]])
+      .then((resu) => res.send({ resu }));
+  }
+};
+
+const searchBySpecial = (req, res) => {
+  const id = req.params.id;
+  const name = id.split("-")[0];
+  const sort = id.split("-")[1];
+
+  if (sort === "emri_A_Z") {
+    Liber.find({
+      title: { $regex: name, $options: "i" },
+    })
+      .collation({ locale: "en", strength: 2 })
+      .sort({ title: 1 })
+      .then((resu) => res.send({ resu }));
+  } else {
+    Liber.find({
+      title: { $regex: name, $options: "i" },
+    })
+      .sort([["stock", "desc"]])
+      .then((resu) => res.send({ resu }));
+  }
 };
 
 module.exports = {
@@ -78,4 +123,5 @@ module.exports = {
   updateBook,
   increaseStock,
   searchByName,
+  searchBySpecial,
 };

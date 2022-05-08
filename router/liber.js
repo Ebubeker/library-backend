@@ -7,6 +7,7 @@ const {
   updateBook,
   increaseStock,
   searchByName,
+  searchBySpecial,
 } = require("../controller/liberController");
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.delete("/deleteLiber/:id", deleteLiber);
 router.post("/decreaseStock", decreaseStock);
 router.post("/increaseStock", increaseStock);
 router.post("/updateBook", updateBook);
-router.get("/searchByName/:name", searchByName);
+router.get("/searchByName/:id", searchByName);
+router.get("/searchBySpecial/:id", searchBySpecial);
 
 module.exports = router;

@@ -15,9 +15,11 @@ const createCupon = (req, res) => {
 };
 
 const listCupon = (req, res) => {
-  Cupon.find().then((result) => {
-    res.json({ result });
-  });
+  Cupon.find()
+    .sort({ field: "asc", _id: -1 })
+    .then((result) => {
+      res.json({ result });
+    });
 };
 
 const deleteCupon = (req, res) => {
